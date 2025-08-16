@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://backend-frontend-hw6n.onrender.com", 
+  baseURL: "https://backend-frontend-hw6n.onrender.com",
 });
 
 export interface Car {
@@ -24,8 +24,9 @@ export const createCar = async (car: Car): Promise<Car> => {
   return res.data;
 };
 
-export const updateCar = async (id: number, car: Car): Promise<Car> => {
-  const res = await api.patch(`/cars/${id}`, car);
+export const updateCar = async (car: Car): Promise<Car> => {
+  if (!car.id) throw new Error("Car id is required for update");
+  const res = await api.patch(`/cars/${car.id}`, car);
   return res.data;
 };
 
